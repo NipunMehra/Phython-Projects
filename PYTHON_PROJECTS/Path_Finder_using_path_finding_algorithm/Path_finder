@@ -1,0 +1,136 @@
+from turtle import width
+import pygame
+import math
+from queue import PriorityQueue
+pygame.init()
+
+WIDTH = 800
+
+
+WIN = pygame.display.set_mode((WIDTH, WIDTH)) # square window
+
+pygame.display.set_caption("A* Path Finding Algorithm")
+
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 255, 0)
+YELLOW = (255, 255, 0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+PURPLE = (128, 0, 128)
+ORANGE = (255, 165 ,0)
+GREY = (128, 128, 128)
+TURQUOISE = (64, 224, 208)
+
+class Node:
+    def __init__(self, row, column, width, total_rows):
+        self.row = row
+        self.column = column
+        self.x_pos = row * width
+        self.y_pos = column * width
+        self.color = WHITE
+        self.neighbors = []
+        self.width = width
+        self.total_rows = total_rows
+
+    def get_pos(self):
+        return self.row, self.column
+
+# Defining/Instansiating the state of these Nodes using colors
+    def is_not_avalible(self):
+        return self.color == ORANGE
+ 
+    def is_available(self):
+        return self.color == YELLOW
+
+    def is_obstacle(self):
+        return self.color == GREY
+
+    def is_start(self):
+        return self.color == GREEN
+
+    def is_end(self):
+        return self.color == RED
+
+    def reset(self):
+        return self.color == WHITE
+
+# Updating the state of corresponding nodes to specific colors
+    def make_not_available(self):
+        self.color == ORANGE
+
+    def make_available(self):
+        self.color == YELLOW
+
+    def make_obstacle(self):
+        self.color == GREY
+
+    def start(self):
+        self.color == GREEN
+
+    def end(self):
+        self.color == RED
+
+    def make_path(self):
+        self.color == BLACK
+
+    def draw(self, win):
+        pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.width))
+
+    def update_neighbours(self, grid):
+        pass
+
+    def __lt__(self, other):  # __lt__ ----------> 'l'ess 't'han
+        return False
+
+''' Note : In this case we are using Manhattan distance or L distance, because it is essentially equal to the 
+           displacement of the object p^2 + b^2 = h^2, To illustrate this here how I would find a distance between 2 "*" :-
+
+                                  Start   "*"
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |
+                                           |________________ "*" End
+
+
+'''
+    
+def h(p1, p2):
+    x1, y1 = p1
+    x2, y2 = p2
+
+    return abs(x1-x1) + abs(y1-y2)
+
+
+def make_grid(rows, width):
+    grid = []
+    gap = width // rows
+    for i in range(rows):
+        grid.append([])
+        for j in range():
+            spot =  Node(i, j, gap, rows)
+            grid[i].append(spot)
+
+    return grid
+
+
+    
+
+
+def main():
+    run = True 
+
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False 
+                break
+
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()
+
